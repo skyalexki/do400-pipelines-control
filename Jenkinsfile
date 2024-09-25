@@ -9,6 +9,14 @@ pipeline {
     }
     stages {
         stage('Run Tests') {
+            stage('Deploy') {
+                when {
+                    expression { env.GIT_BRANCH == 'origin/main' }
+                }
+                steps {
+                    echo 'Deploying...'
+                }
+            }            
             parallel {
                 stage('Backend Tests') {
                     steps {
